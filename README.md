@@ -105,8 +105,8 @@ MIT License Summary:
  No warranty provided by the original authors
 
  Authors
-
+Prem Lohia
 Anitej Mishra
 
-Prem Lohia
+
 For queries, please contact via the GitHub issues section.
