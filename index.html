@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agro Product Price Predictor - Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('farmer.jpg'); /* Use local image */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .credits {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #2c3e50;
+      font-weight: bold;
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2ecc71;
+    }
+
+    select {
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Developer Credits -->
+  <div class="credits">
+    Made by Prem Lohia & Anitej Mishra
+  </div>
+
+  <!-- Login Box -->
+  <div class="login-box">
+    <h2>Login</h2>
+    <label for="role">Select Role:</label>
+    <select id="role">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button onclick="login()">Login</button>
+  </div>
+
+  <script>
+    function login() {
+      const role = document.getElementById("role").value;
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if (role === "user" && username === "user" && password === "user123") {
+        window.location.href = "user.html";
+      } else if (role === "admin" && username === "admin" && password === "admin123") {
+        window.location.href = "admin.html";
+      } else {
+        alert("Invalid credentials or role!");
+      }
+    }
+  </script>
+</body>
+</html>

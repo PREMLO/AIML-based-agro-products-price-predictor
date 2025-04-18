@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Futura+PT:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    body {
+      font-family: 'Futura PT', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      color: #2c3e50;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    header p {
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .banner {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+    }
+    .banner button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    .admin-info, .history-section {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 16px;
+      margin-top: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 18px;
+      border: 2px solid #ccc;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li a {
+      color: #2980b9;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AgroFriend Admin</h1>
+    <p>By Anitej Mishra<br>Prem Lohia</p>
+  </header>
+
+  <div class="banner">
+    <button onclick="window.location.href='admin_landing.html'">Home</button>
+    <button onclick="window.location.href='admin.html'">Prediction Tool</button>
+  </div>
+
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+
+    <div class="admin-info">
+      <h3>Admin Information</h3>
+      <p><strong>Name:</strong> Anitej Mishra</p>
+      <p><strong>Email:</strong> anitejmisra@gmail.com</p>
+      <p><strong>Phone:</strong> +91-9005571394</p>
+    </div>
+
+    <div class="history-section">
+      <h3>Prediction History</h3>
+      <ul id="adminHistoryList"></ul>
+    </div>
+  </div>
+
+  <script>
+    fetch("http://localhost:5000/api/history")
+      .then(res => res.json())
+      .then(files => {
+        const list = document.getElementById("adminHistoryList");
+        list.innerHTML = "";
+        files.forEach(file => {
+          const li = document.createElement("li");
+          li.innerHTML = `<a href="http://localhost:5000/static/${file}" download>${file}</a>`;
+          list.appendChild(li);
+        });
+      })
+      .catch(err => {
+        const list = document.getElementById("adminHistoryList");
+        list.innerHTML = "<li>Failed to fetch prediction history.</li>";
+        console.error("Error fetching history:", err);
+      });
+  </script>
+</body>
+</html>

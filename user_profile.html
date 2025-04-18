@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Futura+PT:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    body {
+      font-family: 'Futura PT', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      color: #2c3e50;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    header p {
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .banner {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+    }
+
+    .banner button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+
+    .user-info {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 16px;
+      margin-top: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 18px;
+      border: 2px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AgroFriend</h1>
+    <p>By Anitej Mishra<br>Prem Lohia</p>
+  </header>
+
+  <div class="banner">
+    <button onclick="window.location.href='user_landing.html'">Home</button>
+    <button onclick="window.location.href='user.html'">Prediction Tool</button>
+  </div>
+
+  <div class="container">
+    <h1>User Profile</h1>
+
+    <div class="user-info">
+      <h3>User Information</h3>
+      <p><strong>Name:</strong> Prem Lohia</p>
+      <p><strong>Email:</strong> premlohia5@gmail.com</p>
+      <p><strong>Phone:</strong> +91-9609547739</p>
+    </div>
+  </div>
+</body>
+</html>

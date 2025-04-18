@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Landing Page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Futura+PT:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    header p {
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .banner {
+      display: flex;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+    }
+
+    .banner button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .main {
+      position: relative;
+      z-index: 1;
+      padding: 40px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .quote-box {
+      flex: 3;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      padding: 40px;
+      font-family: 'Futura PT', sans-serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 300px;
+    }
+
+    .quote-box span {
+      font-weight: 900;
+    }
+
+    .photo-box {
+      flex: 1;
+      height: 300px;
+      width: 300px;
+      border-radius: 16px;
+      background: url('login.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    .cta-button {
+      display: flex;
+      justify-content: center;
+      margin: 40px;
+    }
+
+    .cta-button button {
+      padding: 20px 40px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      flex: 1;
+      max-width: 400px;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔁 Replace src below with your video path (local or relative) -->
+  <video class="background-video" autoplay loop muted>
+    <source src="C:\Users\hp\OneDrive\Desktop\SRM\PROJECT\frontend\background.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <header>
+    <h1>AgroFriend Admin</h1>
+    <p>By Anitej Mishra<br>Prem Lohia</p>
+  </header>
+
+  <!-- 🔃 Banner with center aligned profile button -->
+  <div class="banner">
+    <button onclick="window.location.href='admin_profile.html'">Profile</button>
+  </div>
+
+  <div class="main">
+    <div class="quote-box">
+      <div>
+        Supporting and <span>empowering</span> our farmers<br>
+        for a brighter <span>future</span><br>
+        for all of <span>us</span>
+      </div>
+    </div>
+    <div class="photo-box"></div>
+  </div>
+
+  <!-- ✅ Only one CTA button -->
+  <div class="cta-button">
+    <button onclick="window.location.href='admin.html'">Compare and Predict Crop Prices Now!</button>
+  </div>
+
+</body>
+</html>

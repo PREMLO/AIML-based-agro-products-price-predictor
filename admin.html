@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Futura+PT:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap');
+
+    body {
+      font-family: 'Futura PT', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      color: #2c3e50;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    header p {
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .banner {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+    }
+
+    .banner button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .banner button:hover {
+      background-color: #218838;
+    }
+
+    .container {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .form-card, .chatbot {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+
+    input, select {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 500px;
+      display: block;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table th, table td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #ecf0f1;
+    }
+
+    #chatResponse {
+      background: #eef;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AgroFriend Admin</h1>
+    <p>By Anitej Mishra<br>Prem Lohia</p>
+  </header>
+
+  <div class="banner">
+    <!-- Updated links for Admin -->
+    <button onclick="window.location.href='admin_landing.html'">Dashboard</button>
+    <button onclick="window.location.href='admin_profile.html'">Profile</button>
+  </div>
+
+  <div class="container">
+    <!-- Prediction Form -->
+    <div class="form-card">
+      <label for="product">Select Product:</label>
+      <select id="product">
+        <option value="rice">Rice</option>
+        <option value="wheat">Wheat</option>
+        <option value="maize">Maize</option>
+        <option value="barley">Barley</option>
+        <option value="bajra">Bajra</option>
+        <option value="jowar">Jowar</option>
+        <option value="sugarcane">Sugarcane</option>
+        <option value="cotton">Cotton</option>
+        <option value="soybean">Soybean</option>
+        <option value="mustard">Mustard</option>
+        <option value="gram">Gram</option>
+        <option value="tur">Tur</option>
+        <option value="onion">Onion</option>
+        <option value="potato">Potato</option>
+        <option value="tomato">Tomato</option>
+        <option value="cauliflower">Cauliflower</option>
+        <option value="cabbage">Cabbage</option>
+        <option value="peas">Peas</option>
+        <option value="brinjal">Brinjal</option>
+        <option value="carrot">Carrot</option>
+        <option value="avocados">Avocados</option>
+        <option value="strawberries">Strawberries</option>
+      </select>
+
+      <label for="dates">Enter Dates (YYYY-MM-DD, comma separated):</label>
+      <input type="text" id="dates" placeholder="2025-04-11,2025-04-12" />
+      <button onclick="submitPrediction()">Submit</button>
+    </div>
+
+    <!-- Prediction Output -->
+    <div id="output" class="form-card"></div>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+      <h3>Ask your assistant</h3>
+      <input type="text" id="chatInput" placeholder="Ask a question..." />
+      <button onclick="sendChat()">Send</button>
+      <div id="chatResponse"></div>
+    </div>
+
+    <!-- Crop Recommendation -->
+    <div class="form-card">
+      <h3>Get Crop Recommendation</h3>
+      <input type="text" id="monthInput" placeholder="Enter current month (e.g. April)" />
+      <button onclick="getRecommendation()">Recommend Crops</button>
+      <div id="recommendationResult"></div>
+    </div>
+
+    <!-- History Viewer -->
+    <div class="form-card">
+      <h3>Prediction History</h3>
+      <button onclick="fetchHistory()">View History</button>
+      <div id="historyDisplay"></div>
+    </div>
+  </div>
+
+<script>
+  function submitPrediction() {
+    const product = document.getElementById("product").value;
+    const dates = document.getElementById("dates").value;
+
+    fetch("http://localhost:5000/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ product, dates })
+    })
+    .then(res => res.json())
+    .then(data => {
+      const div = document.getElementById("output");
+      if (data.error) {
+        div.innerHTML = `<p style="color:red;"><strong>Error:</strong> ${data.error}</p>`;
+        return;
+      }
+
+      let tableHTML = `<h3>Prediction Table:</h3><table><tr><th>Date</th><th>Predicted Price (INR)</th></tr>`;
+      data.table.forEach(row => {
+        tableHTML += `<tr><td>${row.Date}</td><td>${row["Predicted Price (INR)"]}</td></tr>`;
+      });
+      tableHTML += `</table><p><strong>Status:</strong> ${data.anomaly}</p>`;
+      div.innerHTML = tableHTML;
+
+      const oldPlot = document.getElementById("plotlyGraph");
+      if (oldPlot) oldPlot.remove();
+
+      const graphDiv = document.createElement("div");
+      graphDiv.id = "plotlyGraph";
+      div.appendChild(graphDiv);
+
+      const trace1 = {
+        x: data.plot_data.actual.x,
+        y: data.plot_data.actual.y,
+        mode: 'lines',
+        name: 'Actual Prices'
+      };
+      const trace2 = {
+        x: data.plot_data.predicted.x,
+        y: data.plot_data.predicted.y,
+        mode: 'lines+markers',
+        name: 'Predicted Prices'
+      };
+      const layout = {
+        title: 'Price Prediction Graph',
+        xaxis: { title: 'Date' },
+        yaxis: { title: 'Price (INR)' }
+      };
+      Plotly.newPlot("plotlyGraph", [trace1, trace2], layout);
+    })
+    .catch(err => alert("Error: " + err));
+  }
+
+  function sendChat() {
+    const question = document.getElementById("chatInput").value;
+    fetch("http://localhost:5000/chatbot", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question })
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("chatResponse").innerHTML = `<p><strong>Bot:</strong> ${data.answer}</p>`;
+    });
+  }
+
+  function getRecommendation() {
+    const month = document.getElementById("monthInput").value;
+    fetch("http://localhost:5000/recommend", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ month })
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("recommendationResult").innerHTML =
+        `<p>Recommended Crops: <strong>${data.recommendation.join(", ")}</strong></p>`;
+    });
+  }
+
+  function fetchHistory() {
+    fetch("http://localhost:5000/api/history")
+      .then(res => res.json())
+      .then(data => {
+        const div = document.getElementById("historyDisplay");
+        div.innerHTML = "<h4>Saved Predictions:</h4>";
+        if (data.length === 0) {
+          div.innerHTML += "<p>No history found.</p>";
+          return;
+        }
+        data.forEach(file => {
+          div.innerHTML += `<p><a href="http://localhost:5000/static/${file}" target="_blank">${file}</a></p>`;
+        });
+      });
+  }
+</script>
+</body>
+</html>
